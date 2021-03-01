@@ -3,8 +3,11 @@
 #current release 20200301-1143
 
 #get distro
+
+if [ -f hostnamectl ]; then
 MYDISTRO=$(hostnamectl | grep "Operating System:")
 MYDISTRO=${MYDISTRO:20}
+fi
 
 #UPDATE APPLIANCES
 #update pihole if existing
@@ -34,3 +37,6 @@ fi
 
 exit
 #todo: add patching for different distros
+
+
+#distro switcher
