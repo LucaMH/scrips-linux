@@ -5,8 +5,10 @@
 #get distro
 
 if [ -f hostnamectl ]; then
-MYDISTRO=$(hostnamectl | grep "Operating System:")
-MYDISTRO=${MYDISTRO:20}
+    MYDISTRO=$(hostnamectl | grep "Operating System:")
+    MYDISTRO=${MYDISTRO:20}
+else
+    echo "no hostname hostnamectl found, will not run systemupdates"
 fi
 
 #UPDATE APPLIANCES
@@ -35,8 +37,12 @@ if [ -f /usr/bin/pip3 ]; then
     sleep 2s
 fi
 
+
+if [ ! -f hostnamectl ]; then
+    echo exiting du to no hostnamectl
+    #exit
+fi
 exit
 #todo: add patching for different distros
-
 
 #distro switcher
