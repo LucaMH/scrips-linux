@@ -1,5 +1,6 @@
 #!/bin/sh
-#current release 20200301-1140
+#DISCLAIMER: if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
+#current release 20200301-1143
 
 #get distro
 MYDISTRO=$(hostnamectl | grep "Operating System:")
