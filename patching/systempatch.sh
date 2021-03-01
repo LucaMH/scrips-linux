@@ -1,6 +1,9 @@
 #!/bin/sh
 #DISCLAIMER: if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
 #current release 20200301-1143
+#GLOBAL SETTINGS
+MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
+MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
 
 #get distro
 
@@ -22,6 +25,7 @@ if [ -f /usr/local/bin/pihole ]; then
     echo updating pihole
     pihole -up
     sleep 2s
+    echo pihole done
 fi
 
 #UPDATES PIP SUFFS
@@ -34,6 +38,7 @@ if [ -f /usr/local/bin/pip ]; then
     echo updating outdated pip packages
     pip list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
     sleep 2s
+    echo  done
 fi
 
 #update pip3 if existing (Thanks to @Sagamir)
@@ -56,3 +61,7 @@ exit
 #todo: add patching for different distros
 
 #distro switcher
+
+
+
+
