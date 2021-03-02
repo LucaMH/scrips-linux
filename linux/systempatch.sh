@@ -9,7 +9,7 @@ MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
 #LETS CREATE SUM FUNCTIONS
 
 #get distro
-GETDISTRO () {
+function GETDISTRO {
 if [ -f /usr/bin/hostnamectl ]
 then
     MYDISTRO=$(hostnamectl | grep "Operating System:")
@@ -23,7 +23,7 @@ fi
 
 #UPDATE APPLIANCES
 #update pihole if existing
-UPDATE_PIHOLE () {
+function UPDATE_PIHOLE {
 if [ -f /usr/local/bin/pihole ] then
     echo updating pihole appliance
     echo updating gravity
@@ -37,7 +37,7 @@ fi
 }
 
 #update pip if existing (pip2)
-UPDATE_PIP2 () {
+function UPDATE_PIP2 {
 if [ -f /usr/local/bin/pip ]; then
     echo updating pip appliance
     echo updating pip
@@ -50,7 +50,7 @@ if [ -f /usr/local/bin/pip ]; then
 fi
 }
 #update pip3 if existing (Thanks to @Sagamir)
-UPDATE_PIP3 () {
+function UPDATE_PIP3 {
 if [ -f /usr/bin/pip3 ]; then
     echo updating pip3 appliance
     echo updating pip3
