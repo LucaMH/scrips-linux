@@ -2,7 +2,7 @@
 #DISCLAIMER: if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
 #current release 20200302-2026
 #GLOBAL SETTINGS
-#run: curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
+#run it: curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
 MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
 
