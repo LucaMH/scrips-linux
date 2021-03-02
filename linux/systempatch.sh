@@ -1,5 +1,5 @@
 #!/bin/sh
-#RELEASE     : 20200302-2138
+#RELEASE     : 20200302-2149
 #DISCLAIMER  : if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
 #RUN PROD    : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
 #RUN DEV     : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/dev/linux/systempatch.sh | bash
@@ -72,9 +72,9 @@ UPDATE_APPLIANCES () {
     fi
 }
 
-UPDATE_APPLIANCES ()
+UPDATE_APPLIANCES ();
 
-#exit
+exit
 
 if [ ! -f /usr/bin/hostnamectl ]
 then
