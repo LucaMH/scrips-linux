@@ -72,7 +72,7 @@ UPDATE_APPLIANCES () {
     fi
 }
 
-UPDATE_APPLIANCES ();
+#UPDATE_APPLIANCES ();
 
 exit
 
