@@ -1,5 +1,5 @@
 #!/bin/sh
-#RELEASE     : 20200302-2058
+#RELEASE     : 20200302-2110
 #DISCLAIMER  : if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
 #RUN PROD    : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
 #RUN DEV     : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/dev/linux/systempatch.sh | bash
@@ -27,7 +27,8 @@ UPDATE_APPLIANCES () {
     echo "running UPDATE_APPLIANCES section now!"
 
     #update pihole if existing
-    if [ -f /usr/local/bin/pihole ] then
+    if [ -f /usr/local/bin/pihole ]
+    then
         echo "updating pihole appliance"
         echo "updating gravity"
         pihole -g
@@ -42,7 +43,8 @@ UPDATE_APPLIANCES () {
 
 
     #update pip if existing (pip2)
-    if [ -f /usr/local/bin/pip ]; then
+    if [ -f /usr/local/bin/pip ]
+    then
         echo "updating pip appliance"
         echo "updating pip"
         pip install --upgrade pip
@@ -56,7 +58,8 @@ UPDATE_APPLIANCES () {
     fi
 
     #update pip3 if existing (Thanks to @Sagamir)
-    if [ -f /usr/bin/pip3 ]; then
+    if [ -f /usr/bin/pip3 ]
+    then
         echo u"pdating pip3 appliance"
         echo "updating pip3"
         pip3 install --upgrade pip
