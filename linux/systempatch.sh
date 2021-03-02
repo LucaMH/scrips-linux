@@ -60,7 +60,7 @@ UPDATE_APPLIANCES () {
     #update pip3 if existing (Thanks to @Sagamir)
     if [ -f /usr/bin/pip3 ]
     then
-        echo u"pdating pip3 appliance"
+        echo "updating pip3 appliance"
         echo "updating pip3"
         pip3 install --upgrade pip
         sleep 2s
@@ -75,9 +75,6 @@ UPDATE_APPLIANCES () {
 UPDATE_APPLIANCES ()
 
 exit
-#UPDATE_PIHOLE
-#UPDATE_PIP2
-#UPDATE_PIP3
 
 if [ ! -f /usr/bin/hostnamectl ]
 then
