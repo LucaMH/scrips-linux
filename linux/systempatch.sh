@@ -33,6 +33,8 @@ if [ -f /usr/local/bin/pihole ] then
     pihole -up
     sleep 2s
     echo pihole done
+else
+    echo there is no pihole
 fi
 }
 
@@ -47,6 +49,8 @@ if [ -f /usr/local/bin/pip ]; then
     pip list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
     sleep 2s
     echo  done
+else
+    echo there is no pip2
 fi
 }
 #update pip3 if existing (Thanks to @Sagamir)
@@ -59,6 +63,8 @@ if [ -f /usr/bin/pip3 ]; then
     echo updating outdated pip3 packages
     pip3 list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
     sleep 2s
+else
+    echo there is no pip3
 fi
 }
 
