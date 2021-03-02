@@ -140,8 +140,8 @@ sleep 2s
 #to be implemented
 
 #reboot
-echo script finished
-echo rebooting now
+echo "script finished"
+echo "rebooting now"
 reboot now
 systemctl reboot now
 
