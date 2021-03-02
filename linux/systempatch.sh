@@ -49,7 +49,7 @@ UPDATE_APPLIANCES () {
         pip install --upgrade pip
         sleep 2s
         echo "updating outdated2 pip packages"
-        pip list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
+        pip list --outdated | cut -f1 -d' ' | awk '{if(NR>=3)print}' | xargs -n1 pip install --upgrade
         sleep 2s
         echo "done"
     else
