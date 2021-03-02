@@ -1,84 +1,62 @@
 #!/bin/sh
 #DISCLAIMER: if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
-#current release 20200302-2026
+#current release 20200301-1737
 #GLOBAL SETTINGS
-#run it: curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
 MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
 
-#LETS CREATE SUM FUNCTIONS
-
 #get distro
-if [ -f /usr/bin/hostnamectl ]
-then
+
+if [ -f hostnamectl ]; then
     MYDISTRO=$(hostnamectl | grep "Operating System:")
     MYDISTRO=${MYDISTRO:20}
     echo I am $MYDISTRO
-#elif [ -f other  ]
 else
-    echo "no possibility to set the distro found, will not run systemupdates"
+    echo "no hostname hostnamectl found, will not run systemupdates"
 fi
 
-UPDATE_APPLIANCES () {
-    echo running UPDATE_APPLIANCES section now!
-    #update pihole if existing
+#UPDATE APPLIANCES
+#update pihole if existing
+if [ -f /usr/local/bin/pihole ]; then
+    echo updating pihole appliance
+    echo updating gravity
+    pihole -g
+    sleep 2s
+    echo updating pihole
+    pihole -up
+    sleep 2s
+    echo pihole done
+fi
 
-    if [ -f /usr/local/bin/pihole ] then
-        echo updating pihole appliance
-        echo updating gravity
-        pihole -g
-        sleep 2s
-        echo updating pihole
-        pihole -up
-        sleep 2s
-        echo pihole done
-    else
-        echo there is no pihole
-    fi
+#UPDATES PIP SUFFS
+#update pip if existing (pip2)
+if [ -f /usr/local/bin/pip ]; then
+    echo updating pip appliance
+    echo updating pip
+    pip install --upgrade pip
+    sleep 2s
+    echo updating outdated pip packages
+    pip list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
+    sleep 2s
+    echo  done
+fi
+
+#update pip3 if existing (Thanks to @Sagamir)
+if [ -f /usr/bin/pip3 ]; then
+    echo updating pip3 appliance
+    echo updating pip3
+    pip3 install --upgrade pip
+    sleep 2s
+    echo updating outdated pip3 packages
+    pip3 list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
+    sleep 2s
+fi
 
 
-    #update pip if existing (pip2)
-    if [ -f /usr/local/bin/pip ]; then
-        echo updating pip appliance
-        echo updating pip
-        pip install --upgrade pip
-        sleep 2s
-        echo updating outdated pip packages
-        pip list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
-        sleep 2s
-        echo  done
-    else
-        echo there is no pip2
-    fi
-
-    #update pip3 if existing (Thanks to @Sagamir)
-    if [ -f /usr/bin/pip3 ]; then
-        echo updating pip3 appliance
-        echo updating pip3
-        pip3 install --upgrade pip
-        sleep 2s
-        echo updating outdated pip3 packages
-        pip3 list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
-        sleep 2s
-    else
-        echo there is no pip3
-    fi
-}
-
-UPDATE_APPLIANCES ()
-
-exit
-#UPDATE_PIHOLE
-#UPDATE_PIP2
-#UPDATE_PIP3
-
-if [ ! -f /usr/bin/hostnamectl ]
-then
+if [ ! -f hostnamectl ]; then
     echo exiting du to no hostnamectl
-    #exit
+    exit
 fi
-
-
 exit
 #todo: add patching for different distros
 
@@ -132,8 +110,6 @@ sleep 2s
 #to be implemented
 
 #reboot
-echo script finished
-echo rebooting now
 reboot now
 systemctl reboot now
 
