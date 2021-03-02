@@ -2,6 +2,7 @@
 #DISCLAIMER: if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
 #current release 20200302-2026
 #GLOBAL SETTINGS
+#run: curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
 MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
 
@@ -60,6 +61,12 @@ if [ -f /usr/bin/pip3 ]; then
     sleep 2s
 fi
 }
+
+GETDISTRO
+exit
+#UPDATE_PIHOLE
+#UPDATE_PIP2
+#UPDATE_PIP3
 
 if [ ! -f /usr/bin/hostnamectl ]
 then
