@@ -74,7 +74,7 @@ UPDATE_APPLIANCES () {
 
 UPDATE_APPLIANCES ()
 
-exit
+#exit
 
 if [ ! -f /usr/bin/hostnamectl ]
 then
