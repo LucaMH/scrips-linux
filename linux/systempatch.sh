@@ -1,5 +1,5 @@
 #!/bin/sh
-#RELEASE         : 20200302-2235
+#RELEASE         : 20200302-2242
 #CREATOR         : LucaMH
 #CONTRIBUTORS    : Sagamir
 #LICENSE         : tbd
@@ -20,6 +20,7 @@ then
 #elif [ -f other  ]
 else
     echo "no possibility to set the distro found, will not run systemupdates"
+    MYDISTRO=SKIPPSKIPPSKIPP
 fi
 
 #update appliances with this function
@@ -74,12 +75,16 @@ UPDATE_APPLIANCES () {
 
 UPDATE_APPLIANCES
 
+# skip 
 
-if [ ! -f /usr/bin/hostnamectl ]
+if [[ $MYDISTRO = SKIPPSKIPPSKIPP ]]
 then
     echo "exiting du to no hostnamectl"
     exit
+else
+    echo "going forward to patch the os"
 fi
+
 
 
 exit
