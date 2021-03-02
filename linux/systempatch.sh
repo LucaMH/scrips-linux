@@ -1,8 +1,11 @@
 #!/bin/sh
-#current release 20200302-2058
-#DISCLAIMER: if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
+#RELEASE     : 20200302-2058
+#DISCLAIMER  : if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
+#RUN PROD    : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
+#RUN DEV     : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/dev/linux/systempatch.sh | bash
+
+
 #GLOBAL SETTINGS
-#run it: curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
 MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
 
