@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 #RELEASE         : 20200302-2242
 #CREATOR         : LucaMH
 #CONTRIBUTORS    : Sagamir, ...
