@@ -19,10 +19,11 @@ else
     echo "no possibility to set the distro found, will not run systemupdates"
 fi
 
+#update appliances with this function
 UPDATE_APPLIANCES () {
     echo running UPDATE_APPLIANCES section now!
-    #update pihole if existing
 
+    #update pihole if existing
     if [ -f /usr/local/bin/pihole ] then
         echo updating pihole appliance
         echo updating gravity
