@@ -1,7 +1,7 @@
 #!/bin/sh
 #RELEASE         : 20200302-2242
 #CREATOR         : LucaMH
-#CONTRIBUTORS    : Sagamir
+#CONTRIBUTORS    : Sagamir, ...
 #LICENSE         : tbd
 #DISCLAIMER      : if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
 #RUN PROD        : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
