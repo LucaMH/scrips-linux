@@ -1,15 +1,15 @@
 #!/bin/sh
-#RELEASE     : 20200302-2207
-#DISCLAIMER  : if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
-#RUN PROD    : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
-#RUN DEV     : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/dev/linux/systempatch.sh | bash
-
+#RELEASE         : 20200302-2235
+#CREATOR         : LucaMH
+#CONTRIBUTORS    : Sagamir
+#LICENSE         : tbd
+#DISCLAIMER      : if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
+#RUN PROD        : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
+#RUN DEV         : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/dev/linux/systempatch.sh #| #bash
 
 #GLOBAL SETTINGS
 MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
-
-#LETS CREATE SUM FUNCTIONS
 
 #get distro
 if [ -f /usr/bin/hostnamectl ]
@@ -25,11 +25,11 @@ fi
 #update appliances with this function
 UPDATE_APPLIANCES () {
     echo "running UPDATE_APPLIANCES section now!"
-
+    
     #update pihole if existing
+    echo "trying to updatie pihole"
     if [ -f /usr/local/bin/pihole ]
     then
-        echo "updating pihole appliance"
         echo "updating gravity"
         pihole -g
         sleep 2s
@@ -40,27 +40,26 @@ UPDATE_APPLIANCES () {
     else
         echo "there is no pihole"
     fi
-
-
+    
     #update pip if existing (pip2)
+    echo "trying to update pip2"
     if [ -f /usr/local/bin/pip ]
     then
-        echo "updating pip appliance"
-        echo "updating pip"
+        echo "updating pip2"
         pip install --upgrade pip
         sleep 2s
-        echo "updating outdated pip packages"
+        echo "updating outdated2 pip packages"
         pip list --outdated | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade
         sleep 2s
         echo "done"
     else
         echo "there is no pip2"
     fi
-
+    
     #update pip3 if existing (Thanks to @Sagamir)
+    echo "trying to update pip3"
     if [ -f /usr/bin/pip3 ]
     then
-        echo "updating pip3 appliance"
         echo "updating pip3"
         pip3 install --upgrade pip
         sleep 2s
@@ -70,16 +69,17 @@ UPDATE_APPLIANCES () {
     else
         echo "there is no pip3"
     fi
+    
+
 }
 
 UPDATE_APPLIANCES
 
-exit
 
 if [ ! -f /usr/bin/hostnamectl ]
 then
     echo "exiting du to no hostnamectl"
-    #exit
+    exit
 fi
 
 
