@@ -89,60 +89,59 @@ fi
 
 
 exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
 #todo: add patching for different distros
 
 #distro switcher
 
 
 #update server
-#centos 7
+#yum
 yum -y update
 
-#centos 8
+#dnf
 dnf update -y -v --refresh
 
-#centos stream
-dnf update -y -v --refresh
-
-#raspbian
+#apt
 apt -y update
-sleep 2s
 apt -y upgrade
-sleep 2s
-#apt-get dist-upgrade -y #be careful with that
-#sleep 2s
-apt-get clean
-sleep 2s
+apt -y full-upgrade
 apt -y autoremove
-sleep 2s
-apt -y autoclean
-sleep 2s
-sync
-sleep 2s
 
-#debian
-apt-get update -y
-sleep 2s
-apt-get upgrade -y
-sleep 2s
 
-#ubuntu
-apt-get update
-sleep 2s
-apt-get upgrade -y
-sleep 2s
-#apt-get dist-upgrade -y #be careful with that
-apt-get autoremove -y
-sleep 2s
-apt-get autoclean -y
-sleep 2s
+#apt-get
+apt-get -y clean
+apt-get -y autoclean
+apt-get -y update
+apt-get -y upgrade
+apt-get -y full-upgrade
+apt-get -y autoremove
+#apt-get -y dist-upgrade #handle with care
 
 #send email to inform updates are done
 #to be implemented
+
+#zypper
+#zypper refresh
+#zypper update
+#have to install suse to test that
+
+
+#sync
+#sync - Synchronize cached writes to persistent storage
+sync
 
 #reboot
 echo "script finished"
 echo "rebooting now"
 reboot now
 systemctl reboot now
-
+shutdown -r now
