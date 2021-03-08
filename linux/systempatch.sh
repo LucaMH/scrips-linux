@@ -50,7 +50,7 @@ UPDATE_APPLIANCES () {
         echo "updating pip2"
         pip install --upgrade pip
         sleep 2s
-        echo "updating outdated2 pip packages"
+        echo "updating outdated pip2 packages"
         pip list --outdated | cut -f1 -d' ' | awk '{if(NR>=3)print}' | xargs -n1 pip install --upgrade
         sleep 2s
         echo "done"
@@ -71,6 +71,26 @@ UPDATE_APPLIANCES () {
     #else
     #    echo "there is no pip3"
     #fi
+
+    #update npm if existing
+    echo "trying to update npm"
+    if [ -f /usr/bin/npm ]
+    then
+        echo "updating npm"
+        npm install -g npm
+        sleep 2s
+        #echo "updating outdated npm packages"
+        #npm outdated -g | cut -f1 -d' ' | awk '{if(NR>=2)print}' | xargs -n1 npm update -g
+        echo "updating npm packages"
+        npm update -g
+        sleep 2s
+        echo "scanning your projects for vulnerabilities and automatically fixes them"
+        npm audit fix
+        sleep 2s
+        echo "done"
+    else
+        echo "there is no npm"
+    fi
 
 }
 
