@@ -21,9 +21,10 @@ then
 #elif [ -f other  ]
 else
     echo "no possibility to set the distro found, will not run systemupdates"
-    MYDISTRO=SKIPPSKIPPSKIPP
+    MYDISTRO=none
 fi
 
+#RUNNING UPDATES
 UPDATE_APPLIANCES
 UPDATE_OS
 
@@ -115,16 +116,6 @@ UPDATE_APPLIANCES () {
 
 }
 
-# skip 
-
-#if [[ $MYDISTRO = SKIPPSKIPPSKIPP ]]
-#then
-#    echo "exiting du to no hostnamectl"
-#    exit
-#else
-#    echo "going forward to patch the os"
-#fi
-
 UPDATE_OS () {
 
     #dnf&yum
@@ -145,16 +136,14 @@ UPDATE_OS () {
         if [ -x "$(command -v apt)" ]
         then
             echo "apt found"
+            apt -y clean
             apt -y update
-            apt -y upgrade
             apt -y full-upgrade
             apt -y autoremove
         else
             echo "apt-get found"
             apt-get -y clean
-            apt-get -y autoclean
             apt-get -y update
-            apt-get -y upgrade
             apt-get -y full-upgrade
             apt-get -y autoremove
             #apt-get -y dist-upgrade #handle with carey 
