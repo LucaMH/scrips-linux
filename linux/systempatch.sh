@@ -1,12 +1,12 @@
 #!/bin/bash
-
-#RELEASE         : 20200302-2242
+exit
+#RELEASE         : 20210312-2340
 #CREATOR         : LucaMH
-#CONTRIBUTORS    : Sagamir, ...
+#CONTRIBUTORS    : Sagamir
 #LICENSE         : tbd
 #DISCLAIMER      : if this script breaks your system, it is your fault you ran conde before checking the code, always check code which you dont own before running it!
 #RUN PROD        : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/main/linux/systempatch.sh | bash
-#RUN DEV         : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/dev/linux/systempatch.sh #| #bash
+#RUN DEV         : curl -L https://raw.githubusercontent.com/LucaMH/scripted_server_patching/dev/linux/systempatch.sh | #bash
 
 #GLOBAL SETTINGS
 MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
@@ -23,6 +23,27 @@ else
     echo "no possibility to set the distro found, will not run systemupdates"
     MYDISTRO=SKIPPSKIPPSKIPP
 fi
+
+UPDATE_APPLIANCES
+UPDATE_OS
+
+
+#sync
+#sync - Synchronize cached writes to persistent storage
+if [ -x "$(command -v sync)" ]
+then
+    sync
+fi
+
+#reboot
+echo "script finished"
+echo "rebooting now"
+reboot now
+systemctl reboot now
+shutdown -r now
+
+exit
+
 
 #update appliances with this function
 UPDATE_APPLIANCES () {
@@ -94,74 +115,62 @@ UPDATE_APPLIANCES () {
 
 }
 
-UPDATE_APPLIANCES
-
 # skip 
 
-if [[ $MYDISTRO = SKIPPSKIPPSKIPP ]]
-then
-    echo "exiting du to no hostnamectl"
-    exit
-else
-    echo "going forward to patch the os"
-fi
+#if [[ $MYDISTRO = SKIPPSKIPPSKIPP ]]
+#then
+#    echo "exiting du to no hostnamectl"
+#    exit
+#else
+#    echo "going forward to patch the os"
+#fi
+
+UPDATE_OS () {
+
+    #dnf&yum
+    if [ -x "$(command -v dnf)" ] | [ -x "$(command -v yum)" ];
+        if [ -x "$(command -v dnf)" ]
+        then
+            echo "dnf found"
+            dnf update -y -v --refresh
+        else
+            echo "yum found"
+            yum update -y 
+        fi
+    fi
 
 
-
-exit
-exit
-exit
-exit
-exit
-exit
-exit
-exit
-exit
-exit
-#todo: add patching for different distros
-
-#distro switcher
-
-
-#update server
-#yum
-yum -y update
-
-#dnf
-dnf update -y -v --refresh
-
-#apt
-apt -y update
-apt -y upgrade
-apt -y full-upgrade
-apt -y autoremove
+   #apt&apt-get
+    if [ -x "$(command -v apt)" ] | [ -x "$(command -v apt-get)" ];
+        if [ -x "$(command -v apt)" ]
+        then
+            echo "apt found"
+            apt -y update
+            apt -y upgrade
+            apt -y full-upgrade
+            apt -y autoremove
+        else
+            echo "apt-get found"
+            apt-get -y clean
+            apt-get -y autoclean
+            apt-get -y update
+            apt-get -y upgrade
+            apt-get -y full-upgrade
+            apt-get -y autoremove
+            #apt-get -y dist-upgrade #handle with carey 
+        fi
+    fi
 
 
-#apt-get
-apt-get -y clean
-apt-get -y autoclean
-apt-get -y update
-apt-get -y upgrade
-apt-get -y full-upgrade
-apt-get -y autoremove
-#apt-get -y dist-upgrade #handle with care
+    #send email to inform updates are done
+    #to be implemented
 
-#send email to inform updates are done
-#to be implemented
+    #zypper
+    #if [ -x "$(command -v zypper)" ]
+    #then
+    #    zypper refresh
+    #    zypper update
+    #fi
 
-#zypper
-#zypper refresh
-#zypper update
-#have to install suse to test that
-
-
-#sync
-#sync - Synchronize cached writes to persistent storage
-sync
-
-#reboot
-echo "script finished"
-echo "rebooting now"
-reboot now
-systemctl reboot now
-shutdown -r now
+    #have to install suse to test that
+}
