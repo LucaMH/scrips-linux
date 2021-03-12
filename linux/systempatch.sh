@@ -13,7 +13,7 @@ MYTIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 MYLOGFILE=/tmp/systempatch_scripted__"${MYTIMESTAMP}".log
 
 #get distro
-if [ -f /usr/bin/hostnamectl ]
+if [ -x "$(command -v hostnamectl)" ]
 then
     MYDISTRO=$(hostnamectl | grep "Operating System:")
     MYDISTRO=${MYDISTRO:20}
@@ -30,7 +30,7 @@ UPDATE_APPLIANCES () {
     
     #update pihole if existing
     echo "trying to updatie pihole"
-    if [ -f /usr/local/bin/pihole ]
+    if [ -x "$(command -v pihole)" ]
     then
         echo "updating gravity"
         pihole -g
@@ -45,7 +45,7 @@ UPDATE_APPLIANCES () {
     
     #update pip if existing (pip2)
     echo "trying to update pip2"
-    if [ -f /usr/local/bin/pip ]
+    if [ -x "$(command -v pip2)" ]
     then
         echo "updating pip2"
         pip install --upgrade pip
@@ -60,7 +60,7 @@ UPDATE_APPLIANCES () {
 
     #update pip3 if existing (Thanks to @Sagamir)
     #echo "trying to update pip3"
-    #if [ -f /usr/bin/pip3 ]
+    #if [ -x "$(command -v pip3)" ]
     #then
     #    echo "updating pip3"
     #    pip3 install --upgrade pip
@@ -74,7 +74,7 @@ UPDATE_APPLIANCES () {
 
     #update npm if existing
     echo "trying to update npm"
-    if [ -f /usr/bin/npm ]
+    if [ -x "$(command -v npm)" ]
     then
         echo "updating npm"
         npm install -g npm
